@@ -28,9 +28,9 @@ class Tinker:
         __tg_notify_chat__: int
 
         @staticmethod
-        def __convert_unix_to_human__(unix_time) -> str:
-            time.ctime(unix_time)
-            return time.strftime("%d/%m/%Y %H:%M:%S")
+        def __convert_unix_to_human__(time_to_convert) -> str:
+
+            return time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime(time_to_convert))
 
         def __post_init__(self) -> None:
             logging.info(f"Spawned alert for: [{self.client_refer_key}], start time recorded: {self.alert_started_at}")
@@ -43,6 +43,7 @@ When: {self.__convert_unix_to_human__(self.alert_started_at)}
             logging.info(f"Telegram notify for [{self.client_refer_key}] on spawned")
 
             self.bot.send_message(self.__tg_notify_chat__, start_alert_msg)
+
         def dismiss_alarm(self, unix_time) -> None:
             stop_alert_msg = f"""
 🦍⛑

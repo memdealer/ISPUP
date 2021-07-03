@@ -19,7 +19,7 @@ tinker = Tinker(ISP_LIST, Config.global_time_window_seconds,
 
 
 @app.on_event("startup")
-@repeat_every(seconds=15)
+@repeat_every(seconds=5)
 def wrapper():
     tinker.operate_and_judge()
 
